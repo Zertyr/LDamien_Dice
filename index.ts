@@ -7,6 +7,6 @@ const player2: Player = new Player('Kyllian');
 const player3: Player = new Player('Alexandre');
 const cup:Cup = new Cup(3);
 const game:Game = new Game(cup);
-game.initializeGame(3,player1,player2,player3);
+game.initializeGame(4,player1,player2,player3);
 game.startGame();
 game.showWinner();

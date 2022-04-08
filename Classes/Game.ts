@@ -3,7 +3,7 @@ import Player from "./Player";
 
 export default class Game {
     _nbTurn: number = 0;
-    _players!: Player[];
+    _players: Player[] = [];
     _cup: Cup;
 
     /**
@@ -17,12 +17,12 @@ export default class Game {
     /**
      * Permet d'initialiser la partie avec un nb de tour et de joueur défini
      */
-    initializeGame(nbTurn:number, ...players:Player[]):void{
+    initializeGame(nbTurn:number, ...players:Player[]){
         if(nbTurn != 0){
             this._nbTurn = nbTurn;
             this._players = players;
         } else {
-            console.log(`Vous ne pouvez pas définir 0 tours de jeu`);
+            return console.log(`Vous ne pouvez pas définir 0 tours de jeu`);
         }
 
     }
@@ -41,9 +41,8 @@ export default class Game {
                 });                
             }
         } else {
-            console.log(`Vous n'avez pas initialisé la partie !`);
+            console.log(`La partie n'a pas était initialisé !`);
         }
-
     }
 
     /**
@@ -52,19 +51,24 @@ export default class Game {
     showWinner(){
         let winners:Player[] = [];
         let maxScore:number = 0;
-        console.log(`__________________Score Final___________________`);
+        if(this._nbTurn != 0){
+            console.log(`__________________Score Final___________________`);
+            this._players.forEach(player => {
+                player.showScore();
+                if(player._score > maxScore){
+                    winners = [];
+                    maxScore = player._score;
+                    winners.push(player);
+                } else if(player._score === maxScore) {
+                    winners.push(player);
+                }
+            });
+            this.winnerPrint(winners);
+        }
+    }
 
-        this._players.forEach(player => {
-            player.showScore();
-            if(player._score > maxScore){
-                winners = [];
-                maxScore = player._score;
-                winners.push(player);
-            } else if(player._score === maxScore) {
-                winners.push(player);
-            }
-        });
-
+    private winnerPrint(winners:Player[]){
+        console.log(`__________________Gagnant(s)___________________`);
         if(winners.length > 1){
             console.log(`Gagnants ex aequo : `);
             
@@ -72,8 +76,7 @@ export default class Game {
                 console.log(` ${winner._name} avec un score de ${winner._score}`);
             });
         } else {
-            console.log(`Le gagnant est ${winners[0]._name} avec un score de ${winners[0]._score}`);
+                console.log(`Le gagnant est ${winners[0]._name} avec un score de ${winners[0]._score}`);
         }
-
     }
 }
