@@ -22,6 +22,11 @@ export default class Cup implements Dice {
         return this._score;
     }
     
+
+    /**
+     * Permet d'afficher le score du tour pour un joueur
+     * @param name: joueur qui viens de lancer
+     */
     afficherScore(name:string):void{
         console.log(`${name} : ${this._score} pts.`);
     }

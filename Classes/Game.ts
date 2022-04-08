@@ -5,11 +5,18 @@ export default class Game {
     _nbTurn: number = 0;
     _players!: Player[];
     _cup: Cup;
-    constructor(nbTurn:number,cup:Cup, ...players:Player[]) {
+
+    /**
+     * constructor du jeu
+     * @param cup : gobelet un nombre définis de dé
+     */
+    constructor(cup:Cup) {
         this._cup = cup;
-        this.initializeGame(nbTurn, ...players)
     }
 
+    /**
+     * Permet d'initialiser la partie avec un nb de tour et de joueur défini
+     */
     initializeGame(nbTurn:number, ...players:Player[]):void{
         if(nbTurn != 0){
             this._nbTurn = nbTurn;
@@ -20,6 +27,9 @@ export default class Game {
 
     }
     
+    /**
+     * Lancement du jeu
+     */
     startGame(){
         if(this._nbTurn != 0) {
             for (let index = 0; index < this._nbTurn; index++) {
@@ -36,6 +46,9 @@ export default class Game {
 
     }
 
+    /**
+     * Affiche le ou les gagnants
+     */
     showWinner(){
         let winners:Player[] = [];
         let maxScore:number = 0;
