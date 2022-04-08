@@ -16,10 +16,12 @@ export default class Cup implements Dice {
      */
     throw(): number {
         const dice:Dice = new Dice;
+        let turnScore = 0;
         for (let index = 0; index < this._value; index++) {
-            this._score = dice.throw();
+            turnScore += dice.throw();
         }
-        return this._score;
+        this._score = turnScore;
+        return turnScore;
     }
     
 
